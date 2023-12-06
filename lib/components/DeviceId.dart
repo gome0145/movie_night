@@ -29,7 +29,17 @@ class SharedPreferencesManager {
 
   static Future<String?> setSessionID(String session) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("sessionId", session!);
+    prefs.setStringList("sessionID", <String>[session!]);
+  }
+
+  static Future<void> addSessionID(String session) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<String> currentSessions = prefs.getStringList("sessionID") ?? <String>[];
+
+    currentSessions.add(session);
+
+    prefs.setStringList("sessionID", currentSessions);
   }
 
 

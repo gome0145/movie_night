@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/components/button.dart';
 import '../utils/http_helper.dart';
 
 
@@ -14,9 +15,8 @@ class _ShareScreenState extends State<ShareScreen> {
 
   void fetchData() {
     try {
-
       apiData =
-          HttpHelper.fetch('get');
+          HttpHelper.fetchCode('get');
       //State variable now holds a Future and calls the fetch method immediately
     } catch (ex) {
       print(ex.toString());
@@ -41,7 +41,16 @@ class _ShareScreenState extends State<ShareScreen> {
           future: apiData,
           builder: (BuildContext context, AsyncSnapshot<MovieNight> snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data!.message);
+              return Column(
+                children: [
+                  Text(snapshot.data!.code),
+                  const Text("Share this code"),
+                  MyButton(text: "Select movies", onTap: () {
+                    Navigator.pushNamed(context, '/movies');
+                  },
+                  )
+                ],
+              );
             }
             else if (snapshot.hasError) {
               //tell the user you don't like them

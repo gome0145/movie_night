@@ -12,7 +12,7 @@ class HttpHelper {
   //with static HttpHelper.fetch()
   //without static HttpHelper.fetch()
 
-  static Future<MovieNight> fetch(String method) async {
+  static Future<MovieNight> fetchCode(String method) async {
     String deviceId = await SharedPreferencesManager.getDeviceId();
     Uri uri = Uri.parse("https://movie-night-api.onrender.com/start-session?device_id=$deviceId");
     //convert the url String into a Uri object.
@@ -32,21 +32,38 @@ class HttpHelper {
         } else {
           throw Exception('Did not get a valid response.');
         }
-      // case 'post': //ejemplo de POST
-      //   http.Response resp = await http.post(uri,
-      //       body: jsonEncode({'name': 'Buddy', 'email': 'pal@friend.org'}),
-      //       headers: {'Content-type': 'application/json; charset=UTF-8'});
-      //   if (resp.statusCode == 201) {
-      //     Map<String, dynamic> data = jsonDecode(resp.body);
-      //     User user = User.fromJson(data);
-      //     return [user];
-      //   } else {
-      //     throw Exception('Did not get a valid response.');
-      //   }
+
       default:
         throw Exception('Not a valid method.');
     }
   }
+
+  static Future<MovieNight> fetchEnterCode(String method, int code) async {
+    String deviceId = await SharedPreferencesManager.getDeviceId();
+    Uri uri = Uri.parse("https://movie-night-api.onrender.com/start-session?device_id=$deviceId&code=$code");
+
+    await Future<bool>.delayed(
+      Duration(seconds: 3),
+          () => true,
+    );
+
+    switch (method) {
+      case 'get':
+        http.Response resp = await http.get(uri);
+        if (resp.statusCode == 200) {
+          Map<String, dynamic> data = jsonDecode(resp.body) as Map<String, dynamic>;
+          SharedPreferencesManager.setSessionID(data['session_id'].toString());
+          return MovieNight.fromJson(data);
+        } else {
+          throw Exception('Did not get a valid response.');
+        }
+
+      default:
+        throw Exception('Not a valid method.');
+    }
+  }
+
+
 }
 
 //Data Models
