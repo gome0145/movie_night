@@ -21,6 +21,7 @@ class _MovieScreenState extends State<MovieScreen> {
   late ConfettiController _centerController;
   int moviesPage = 1;
   late List<String>? movieInfo;
+  int movieIdMatch = 0;
 
   void fetchMovies() {
     try {
@@ -32,11 +33,12 @@ class _MovieScreenState extends State<MovieScreen> {
 
   void fetchVote(int movieId, bool vote) async {
     try {
-      await HttpHelper.fetchVote('get', movieId, vote);
-      bool? v = await SharedPreferencesManager.getVote();
-      movieInfo = await SharedPreferencesManager.getMovieInfo();
+      var result = await HttpHelper.fetchVote('get', movieId, vote);
+
       setState(() {
-        voteSaved = v;
+        voteSaved = result.match;
+        movieIdMatch = int.parse(result
+            .movieId); // Actualiza el movieId con el valor devuelto por fetchVote
       });
     } catch (ex) {
       print(ex.toString());
@@ -89,7 +91,9 @@ class _MovieScreenState extends State<MovieScreen> {
           builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
             if (voteSaved!) {
               _centerController.play();
-              var moviePath = movieInfo![1];
+              var matchedMovie = snapshot.data!
+                  .firstWhere((movie) => movie.id == movieIdMatch);
+              var moviePath = matchedMovie.posterPath;
               return SafeArea(
                 child: Stack(
                   children: <Widget>[
@@ -115,7 +119,7 @@ class _MovieScreenState extends State<MovieScreen> {
                         ),
                       ),
                       content: SizedBox(
-                        height: 430,
+                        height: 410,
                         child: Column(
                           children: [
                             Image(
@@ -149,7 +153,7 @@ class _MovieScreenState extends State<MovieScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      movieInfo![2],
+                                      matchedMovie.popularity.toString(),
                                       style: const TextStyle(
                                         fontSize: 18,
                                         color: Colors.indigo,

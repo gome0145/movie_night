@@ -110,7 +110,7 @@ class HttpHelper {
         if (resp.statusCode == 200) {
           Map<String, dynamic> data =
               jsonDecode(resp.body) as Map<String, dynamic>;
-          SharedPreferencesManager.setVote(data['data']['match']);
+          // SharedPreferencesManager.setVote(data['data']['match']);
           return VoteResult.fromJson(data);
         } else {
           throw Exception('Did not get a valid response.');
