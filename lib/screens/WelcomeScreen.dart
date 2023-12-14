@@ -30,7 +30,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 60,
+                height: 40,
               ),
               const Image(
                 image: AssetImage('images/popcorn.png'),
@@ -38,14 +38,14 @@ class WelcomeScreen extends StatelessWidget {
                 width: 150,
               ),
               const SizedBox(
-                height: 60,
+                height: 40,
               ),
               Text(
                 "Please choose an option",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               MyButton(
                 text: "Create a session",
@@ -55,7 +55,7 @@ class WelcomeScreen extends StatelessWidget {
                 icon: Icons.add_circle,
               ),
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               MyButton(
                 text: "I have a code!",

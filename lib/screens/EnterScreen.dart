@@ -1,8 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:movie_night/components/button.dart';
 import '../utils/http_helper.dart';
+import '../model/movieNight.dart';
 
 class EnterScreen extends StatefulWidget {
   const EnterScreen({super.key});

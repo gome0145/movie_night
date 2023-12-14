@@ -3,6 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import '../components/SharedPreferencesManager.dart';
+import '../model/movie.dart';
+import '../model/movieNight.dart';
+import '../model/vote.dart';
 
 class HttpHelper {
   static Future<MovieNight> fetchCode(String method) async {
@@ -116,70 +119,5 @@ class HttpHelper {
       default:
         throw Exception('Not a valid method.');
     }
-  }
-}
-
-//Data Models
-
-class MovieNight {
-  late String message;
-  late String code;
-  late String sessionId;
-
-  MovieNight({
-    required this.message,
-    required this.code,
-    required this.sessionId,
-  });
-
-  MovieNight.fromJson(Map<String, dynamic> data) {
-    message = data['data']['message'] ?? '';
-    code = data['data']['code'] ?? '';
-    sessionId = data['data']['session_id'] ?? '';
-  }
-}
-
-class Movie {
-  late int id;
-  late String title;
-  late double popularity;
-  late String posterPath;
-  late double voteAverage;
-  late int voteCount;
-  late String overview;
-
-  Movie({
-    required this.id,
-    required this.title,
-    required this.popularity,
-    required this.posterPath,
-    required this.voteAverage,
-    required this.voteCount,
-    required this.overview,
-  });
-
-  Movie.fromJson(Map<String, dynamic> data) {
-    id = data['id'] ?? 0;
-    title = data['title'] ?? '';
-    popularity = data['popularity'] ?? 0.0;
-    posterPath = data['poster_path'] ?? "";
-    voteAverage = data['vote_average'] ?? 0.0;
-    voteCount = data['vote_count'] ?? 0;
-    overview = data['overview'] ?? "";
-  }
-}
-
-class VoteResult {
-  late String movieId;
-  late bool match;
-
-  VoteResult({
-    required this.movieId,
-    required this.match,
-  });
-
-  VoteResult.fromJson(Map<String, dynamic> data) {
-    movieId = data['data']['movie_id'] ?? "";
-    match = data['data']['match'] ?? false;
   }
 }

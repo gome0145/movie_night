@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/components/button.dart';
 import '../utils/http_helper.dart';
+import '../model/movieNight.dart';
 
 class ShareScreen extends StatefulWidget {
   const ShareScreen({Key? key}) : super(key: key);

@@ -3,6 +3,8 @@ import 'package:movie_night/components/button.dart';
 import '../utils/http_helper.dart';
 import 'package:confetti/confetti.dart';
 import '../components/SharedPreferencesManager.dart';
+import '../model/movie.dart';
+import '../model/vote.dart';
 
 class MovieScreen extends StatefulWidget {
   const MovieScreen({Key? key}) : super(key: key);
