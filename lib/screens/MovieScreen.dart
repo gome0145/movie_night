@@ -119,7 +119,7 @@ class _MovieScreenState extends State<MovieScreen> {
                         ),
                       ),
                       content: SizedBox(
-                        height: 410,
+                        height: 425,
                         child: Column(
                           children: [
                             Image(
