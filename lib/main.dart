@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
+        fontFamily: "Nunito",
         colorScheme: ColorScheme(
           brightness: Brightness.light,
           primary: const Color.fromARGB(255, 12, 16, 58),
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: const TextTheme(
           displayLarge: TextStyle(
-              fontSize: 57, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 57, color: Colors.white, fontWeight: FontWeight.w800),
           displayMedium: TextStyle(fontSize: 45, color: Colors.white),
           displaySmall: TextStyle(fontSize: 36, color: Colors.white),
           headlineLarge: TextStyle(fontSize: 32, color: Colors.white),
